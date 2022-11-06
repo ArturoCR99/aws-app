@@ -40,7 +40,12 @@ function App() {
     // Handle promise's fulfilled/rejected states
     subscribePromise
       .then(function (data) {
+        alert(
+          "Tu correo ha sido enviado a la oficina 39 en pyeongjang Korea del Norte, Te enviaremos un correo de confirmación"
+        );
+
         console.log("Subscription ARN is " + data.SubscriptionArn);
+        setEmail("");
       })
       .catch(function (err) {
         console.error(err, err.stack);
@@ -55,10 +60,20 @@ function App() {
     <div className="App">
       <div className="div-main">
         <h1>AWS NEWSLETTER</h1>
-        <span>Ingresa tu correo electrónico</span>
+        <img
+          src="https://www.cerner.com/-/media/cerner-media-united-states/solutions/managed-services-provider-aws-image.png?vs=1&h=1252&w=1272&la=en&hash=680EB1898C2831E4429562F12242D63F"
+          width={200}
+          alt="AWS LOGO"
+        />
         <form onSubmit={handleSubmit}>
           <div className="form-email">
-            <input type="email" value={email} onChange={handleChange}></input>
+            <input
+              type="email"
+              value={email}
+              placeholder="Ingresa tu correo electrónico"
+              onChange={handleChange}
+              required
+            ></input>
             <input type="submit" value="Enviar"></input>
           </div>
         </form>

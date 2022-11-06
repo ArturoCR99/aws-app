@@ -4,6 +4,10 @@
   justify-content: center;
 }
 
+.div-main {
+  text-align: center;
+}
+
 .form-email {
   display: grid;
   grid-template-rows: auto;
