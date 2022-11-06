@@ -55,6 +55,7 @@ function App() {
     <div className="App">
       <div className="div-main">
         <h1>AWS NEWSLETTER</h1>
+        <span>Ingresa tu correo electrónico</span>
         <form onSubmit={handleSubmit}>
           <div className="form-email">
             <input type="email" value={email} onChange={handleChange}></input>
