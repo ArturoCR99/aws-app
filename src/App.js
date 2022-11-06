@@ -13,8 +13,8 @@ function App() {
     e.preventDefault();
 
     var creds = new AWS.Credentials({
-      accessKeyId: AKIA3YA5II75CBZJ4NXM,
-      secretAccessKey: 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,
+      accessKeyId: "AKIA3YA5II75CBZJ4NXM",
+      secretAccessKey: "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",
     });
 
     var myConfig = new AWS.Config({
