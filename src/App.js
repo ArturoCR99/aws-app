@@ -8,7 +8,6 @@ function App() {
 
   //Handlers
 
-  //Subscribe Handler
   const handleSubmit = (e) => {
     e.preventDefault();
 
