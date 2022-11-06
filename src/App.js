@@ -1,23 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import AWS from "aws-sdk";
 
 function App() {
+  //State
+  const [email, setEmail] = useState("");
+
+  //Handlers
+
+  //Subscribe Handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    var creds = new AWS.Credentials({
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    });
+
+    var myConfig = new AWS.Config({
+      credentials: creds,
+      region: "us-east-1",
+    });
+
+    AWS.config = myConfig;
+
+    // Create subscribe/email parameters
+
+    var params = {
+      Protocol: "EMAIL" /* required */,
+      TopicArn:
+        "arn:aws:sns:us-east-1:807515211770:aws_notifications" /* required */,
+      Endpoint: email,
+    };
+
+    // Create promise and SNS service object
+    var subscribePromise = new AWS.SNS({ apiVersion: "2010-03-31" })
+      .subscribe(params)
+      .promise();
+
+    // Handle promise's fulfilled/rejected states
+    subscribePromise
+      .then(function (data) {
+        console.log("Subscription ARN is " + data.SubscriptionArn);
+      })
+      .catch(function (err) {
+        console.error(err, err.stack);
+      });
+  };
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="div-main">
+        <h1>AWS NEWSLETTER</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-email">
+            <input type="email" value={email} onChange={handleChange}></input>
+            <input type="submit" value="Enviar"></input>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
